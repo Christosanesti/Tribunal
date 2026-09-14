@@ -1,0 +1,124 @@
+{
+  "project": "Tribunal",
+  "version": "1.0.0",
+  "created": "2024-01-15",
+  "description": "AI-Powered Online Dispute Resolution Platform",
+  "status": "planning",
+  "sprint": {
+    "current": 1,
+    "duration": "2 weeks"
+  },
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Set up project structure and configuration",
+      "status": "in_progress",
+      "priority": "high",
+      "assignee": "AI Agent",
+      "estimated_hours": 4,
+      "completed_hours": 3
+    },
+    {
+      "id": "TASK-002",
+      "title": "Create Prisma schema with all models",
+      "status": "todo",
+      "priority": "high",
+      "assignee": "AI Agent",
+      "estimated_hours": 4
+    },
+    {
+      "id": "TASK-003",
+      "title": "Build landing page with hero, features, and CTA",
+      "status": "todo",
+      "priority": "high",
+      "assignee": "AI Agent",
+      "estimated_hours": 6
+    },
+    {
+      "id": "TASK-004",
+      "title": "Implement authentication (NextAuth)",
+      "status": "todo",
+      "priority": "high",
+      "assignee": "AI Agent",
+      "estimated_hours": 6
+    },
+    {
+      "id": "TASK-005",
+      "title": "Build case wizard (multi-step form with Zod)",
+      "status": "todo",
+      "priority": "high",
+      "assignee": "AI Agent",
+      "estimated_hours": 8
+    },
+    {
+      "id": "TASK-006",
+      "title": "Create dashboard layout and navigation",
+      "status": "todo",
+      "priority": "medium",
+      "assignee": "AI Agent",
+      "estimated_hours": 4
+    },
+    {
+      "id": "TASK-007",
+      "title": "Build case detail view",
+      "status": "todo",
+      "priority": "medium",
+      "assignee": "AI Agent",
+      "estimated_hours": 4
+    },
+    {
+      "id": "TASK-008",
+      "title": "Implement mediated chat interface",
+      "status": "todo",
+      "priority": "medium",
+      "assignee": "AI Agent",
+      "estimated_hours": 6
+    },
+    {
+      "id": "TASK-009",
+      "title": "Create document upload and management",
+      "status": "todo",
+      "priority": "medium",
+      "assignee": "AI Agent",
+      "estimated_hours": 6
+    },
+    {
+      "id": "TASK-010",
+      "title": "Build settlement generator",
+      "status": "todo",
+      "priority": "medium",
+      "assignee": "AI Agent",
+      "estimated_hours": 8
+    },
+    {
+      "id": "TASK-011",
+      "title": "Create admin/mediator panel",
+      "status": "todo",
+      "priority": "medium",
+      "assignee": "AI Agent",
+      "estimated_hours": 6
+    },
+    {
+      "id": "TASK-012",
+      "title": "Implement settings page",
+      "status": "todo",
+      "priority": "low",
+      "assignee": "AI Agent",
+      "estimated_hours": 3
+    },
+    {
+      "id": "TASK-013",
+      "title": "Write README and documentation",
+      "status": "todo",
+      "priority": "medium",
+      "assignee": "AI Agent",
+      "estimated_hours": 2
+    }
+  ],
+  "metrics": {
+    "target_users": 1000,
+    "target_resolution_rate": 0.75,
+    "target_time_to_resolution": "14 days",
+    "target_satisfaction": 4.5
+  }
+}

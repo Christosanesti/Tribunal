@@ -1,0 +1,177 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  role          Role      @default(claimant)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  casesAsClaimant    Case[]    @relation("ClaimantCases")
+  casesAsRespondent  Case[]    @relation("RespondentCases")
+  casesAsMediator    Case[]    @relation("MediatorCases")
+  messages           Message[]
+  documents          Document[]
+  settlementsCreated Settlement[] @relation("SettlementCreator")
+  settlementsSigned  Settlement[] @relation("SettlementSigner")
+  payments           Payment[]
+}
+
+enum Role {
+  claimant
+  respondent
+  mediator
+  admin
+}
+
+model Case {
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  caseType    CaseType
+  status      CaseStatus @default(open)
+  amount      Int?
+  caseNumber  String    @unique
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  claimantId  String
+  claimant    User      @relation("ClaimantCases", fields: [claimantId], references: [id])
+  respondentId  String?
+  respondent  User?     @relation("RespondentCases", fields: [respondentId], references: [id])
+  mediatorId  String?
+  mediator    User?     @relation("MediatorCases", fields: [mediatorId], references: [id])
+  messages    Message[]
+  documents   Document[]
+  settlements Settlement[]
+  payments    Payment[]
+}
+
+enum CaseType {
+  small_claims
+  freelance_contract
+  tenant_landlord
+  community_dispute
+  roommate
+  other
+}
+
+enum CaseStatus {
+  draft
+  open
+  in_mediation
+  pending_payment
+  settled
+  closed
+}
+
+model Message {
+  id              String           @id @default(cuid())
+  content         String
+  category        MessageCategory  @default(general)
+  read            Boolean          @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  senderId        String
+  sender          User             @relation(fields: [senderId], references: [id])
+  caseId          String
+  case            Case             @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  parentMessageId String?
+  parentMessage   Message?         @relation("Replies", fields: [parentMessageId], references: [id])
+  replies         Message[]        @relation("Replies")
+}
+
+enum MessageCategory {
+  general
+  proposal
+  counter_proposal
+  complaint
+  response
+  ai_suggestion
+  system
+}
+
+model Document {
+  id         String       @id @default(cuid())
+  name       String
+  type       DocumentType
+  mimeType   String
+  url        String
+  size       Int
+  aiSummary  String?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  uploadedById String
+  uploadedBy   User       @relation(fields: [uploadedById], references: [id])
+  caseId       String
+  case         Case       @relation(fields: [caseId], references: [id], onDelete: Cascade)
+}
+
+enum DocumentType {
+  contract
+  receipt
+  message
+  email
+  photo
+  evidence
+  other
+}
+
+model Settlement {
+  id          String      @id @default(cuid())
+  terms       String
+  amount      Int?
+  status      SettlementStatus @default(draft)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  caseId      String      @unique
+  case        Case        @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  createdById String
+  createdBy   User        @relation("SettlementCreator", fields: [createdById], references: [id])
+  signedById  String?
+  signedBy    User?       @relation("SettlementSigner", fields: [signedById], references: [id])
+  signedAt    DateTime?
+}
+
+enum SettlementStatus {
+  draft
+  pending_review
+  agreed
+  signed
+  executed
+  rejected
+}
+
+model Payment {
+  id                    String      @id @default(cuid())
+  amount                Int
+  currency              String      @default("usd")
+  status                PaymentStatus @default(pending)
+  stripePaymentIntentId String?     @unique
+  stripeSessionId       String?     @unique
+  stripeCustomerId      String?
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+  caseId                String
+  case                  Case        @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  userId                String?
+  user                  User?       @relation(fields: [userId], references: [id])
+}
+
+enum PaymentStatus {
+  pending
+  processing
+  completed
+  failed
+  refunded
+  cancelled
+}

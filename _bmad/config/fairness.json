@@ -1,0 +1,35 @@
+{
+  "discovery": {
+    "mode": "structured",
+    "principles": ["fairness", "efficiency", "accessibility", "automation"],
+    "constraints": {
+      "budget": "per-case fee model",
+      "timeline": "MVP in 4 weeks",
+      "team_size": "small team"
+    }
+  },
+  "fairness_framework": {
+    "principle": "balanced outcomes",
+    "guidelines": [
+      "AI suggestions must be neutral and explainable",
+      "Both parties have equal access to information",
+      "Mediation is voluntary and non-binding until settlement",
+      "Document everything for audit trail"
+    ]
+  },
+  "user_journeys": {
+    "claimant": ["sign up", "create case", "invite respondent", "upload documents", "mediate", "settle"],
+    "respondent": ["receive invite", "sign up", "review case", "upload documents", "mediate", "settle"],
+    "mediator": ["view assigned cases", "review evidence", "provide suggestions", "facilitate communication", "document settlement"],
+    "admin": ["manage users", "view platform metrics", "manage mediators", "handle disputes"]
+  },
+  "monetization": {
+    "models": ["per_case_fee", "mediator_subscription", "enterprise_api"],
+    "pricing_tiers": {
+      "free": "case creation only",
+      "standard": "$29.99 per case",
+      "premium": "$49.99 per case with mediator",
+      "enterprise": "custom pricing for platforms"
+    }
+  }
+}
